@@ -5,3 +5,7 @@ metadata:
   namespace: mychart
 data:
   myvalue: "hello world"
+  drink: {{ .Values.favoriteDrink | upper | quote }}
+  {{- if eq .Values.favoriteDrink "coffee" }}
+  mug: true
+  {{- end }}
