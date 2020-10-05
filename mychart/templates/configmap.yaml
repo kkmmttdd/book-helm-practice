@@ -5,7 +5,18 @@ metadata:
   namespace: mychart
 data:
   myvalue: "hello world"
-  drink: {{ .Values.favoriteDrink | upper | quote }}
-  {{- if eq .Values.favoriteDrink "coffee" }}
+  drink: {{ .Values.favorite.drink | upper | quote }}
+  {{- if eq .Values.favorite.drink "coffee" }}
   mug: true
   {{- end }}
+  {{- with .Values.favorite }}
+  favorite: {{ .food }}
+  {{- end}}
+  toppings: |-
+    {{- range .Values.pizzaToppings }}
+    - {{ . }}
+    {{- end }}
+  pastas: |-
+    {{- range $index, $value := .Values.pizzaToppings }}
+      {{ $index }}: {{ $value }}
+    {{- end }}
